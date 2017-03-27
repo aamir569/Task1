@@ -4,7 +4,7 @@ base_url = 'https://api.typeform.com/v1/forms?key=ac83034cfa742c0f79c26e9a612b4b
 responseFromServer = requests.get(base_url)
 responseInJson = responseFromServer.json()
 
-def ResponseInCSV( formId ):
+def ResponseInCSV( formId,outputFileName ):
     base_url = "https://api.typeform.com/v1/form/" + formId + "?key=ac83034cfa742c0f79c26e9a612b4ba7e2aa0d3d"
     responseFromServer = requests.get(base_url)
     responseInJson = responseFromServer.json()
@@ -36,10 +36,13 @@ def ResponseInCSV( formId ):
         print(rows)
         writer.writerow(rows)
         del rows[:]
+    outfile.close()
     return
 
 # gets response with all form ids and extract data into CSV file
 for response in responseInJson:
     formId = response['id']
-    ResponseInCSV(formId)
+    outputFileName = "customers.csv"
+    # Gets response with CSV for each Form
+    ResponseInCSV(formId,outputFileName)
 
