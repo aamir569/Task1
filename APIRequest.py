@@ -29,6 +29,8 @@ def ResponseInCSV( formId,outputFileName ):
         rows.append(questionRow)
         for response in responseInJson['responses']:
             if (response['answers'].get(question['id']) != None):
+                # Removed bad data by removing '\n'. Other option could have
+                # been to add a escape characher '\' before '\n' but I choose the first one.
                 row = str(response['answers'].get(question['id'])).replace("\n", "")
             elif (response['answers'].get(question['id']) is None):
                 row = "NaN"
@@ -43,5 +45,7 @@ for response in responseInJson:
     formId = response['id']
     outputFileName = "customers.csv"
     # Gets response with CSV for each Form
+    # We could have a array of FormId with the size of number of formIds in case we have more than one FormId in response
+    # but since I was getting only one form Id in response so I created a single variable
     ResponseInCSV(formId,outputFileName)
 
