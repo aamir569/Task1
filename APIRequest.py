@@ -33,7 +33,6 @@ def ResponseInCSV( formId,outputFileName ):
             elif (response['answers'].get(question['id']) is None):
                 row = "NaN"
             rows.append(row)
-        print(rows)
         writer.writerow(rows)
         del rows[:]
     outfile.close()
